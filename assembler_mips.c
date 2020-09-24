@@ -21,39 +21,49 @@ int main(int argc, char *argv[]) {
 		exit(-1);
 	}
 	
-	char line[];
-	char linecopy[];
-	char instruct[] = "";	//Store instruction name
-	char R1[];	//Store first register
-	char R2[];	//Store second register
-	char R3[];	//Store third register
-	
+	/*char line[100];
+	char linecopy[100];
+	char instruct[8];	//Store instruction name
+	char R1[5];	//Store first register
+	char R2[5];	//Store second register
+	char R3[5];	//Store third argument
+	*/
+
+	char *line = malloc(100 * sizeof(char));
+	char *linecopy = malloc(100 * sizeof(char));
+	char *instruct = malloc(10 * sizeof(char));
+	char *R1 = malloc(10 * sizeof(char));
+	char *R2 = malloc(10 * sizeof(char));
+	char *R3 = malloc(10 * sizeof(char));
+
 	while(fgets(line, 100, fpi) != NULL){		//Reads through file line by line
 		printf("Line is: %s\n", line);	//Debug
-		strcpy(linecopy, line);	//Copy original line into linecopy
-		printf("Line Copy is: %s\n", linecopy);	//Debug
 		int i = 0;	//Used to parse line
-		//instruct = strtok(line, " ");	//Breaks line into instruction name by looking for space char
-		strncpy(instruct, strtok(line, " "), (sizeof instruct) - 1);
+		linecopy = strtok(line, " ");	//Breaks line into instruction by looking for space char
+		instruct = linecopy;
 		printf("Instruction: %s\n", instruct);	//Debug
 		
 		if(strcmp(instruct, "addiu") == 0){
 			while(line != NULL){
 				if(i == 0){
-					strcpy(R1, strtok(line, " $(),"));
-					printf("%s", R1);
+					printf("Test\n");
+					linecopy = strtok(line, ",");
+					R1 = linecopy;
+					printf("%s", linecopy);
 					i++;
 				}
-				else if(i == 2){
-					strcpy(R2, strtok(line, " $(),"));
+				else if(i == 1){
+					R2 = strtok(line, " $(),");
 					printf("%s", R2);
 					i++;
 				}
-				else if(i == 3){
-					strcpy(R3, strtok(line, " $(),"));
+				else if(i == 2){
+					R3 = strtok(line, " $(),");
 					printf("%s", R3);
 					i++;
 				}
+				else
+					i = 0;
 			}
 		}
 	}
