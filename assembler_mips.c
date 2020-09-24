@@ -48,18 +48,20 @@ int main(int argc, char *argv[]) {
 			while(line != NULL){
 				if(i == 0){
 					printf("Test\n");
-					linecopy = strtok(line, ",");
+					linecopy = strtok(NULL, " $(), ");
 					R1 = linecopy;
 					printf("%s", R1);
 					i++;
 				}
 				else if(i == 1){
-					R2 = strtok(line, " $(),");
+					linecopy = strtok(NULL, " $(), ");
+					R2 = linecopy;
 					printf("%s", R2);
 					i++;
 				}
 				else if(i == 2){
-					R3 = strtok(line, " $(),");
+					linecopy = strtok(NULL, " (),");
+					R3 = linecopy;
 					printf("%s", R3);
 					i++;
 				}
