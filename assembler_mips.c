@@ -21,14 +21,17 @@ int main(int argc, char *argv[]) {
 		exit(-1);
 	}
 	
-	char line[100];
-	char instruct[10] = "";	//Store instruction name
-	char R1[2];	//Store first register
-	char R2[2];	//Store second register
-	char R3[2];	//Store third register
+	char line[];
+	char linecopy[];
+	char instruct[] = "";	//Store instruction name
+	char R1[];	//Store first register
+	char R2[];	//Store second register
+	char R3[];	//Store third register
 	
 	while(fgets(line, 100, fpi) != NULL){		//Reads through file line by line
 		printf("Line is: %s\n", line);	//Debug
+		strcpy(linecopy, line);	//Copy original line into linecopy
+		printf("Line Copy is: %s\n", linecopy);	//Debug
 		int i = 0;	//Used to parse line
 		//instruct = strtok(line, " ");	//Breaks line into instruction name by looking for space char
 		strncpy(instruct, strtok(line, " "), (sizeof instruct) - 1);
