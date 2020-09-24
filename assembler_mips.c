@@ -28,17 +28,18 @@ int main(int argc, char *argv[]) {
 	char R2[5];	//Store second register
 	char R3[5];	//Store third argument
 	*/
-
+	size_t linesize = 100;	//needed for getline function
 	char *line = malloc(100 * sizeof(char));
 	char *linecopy = malloc(100 * sizeof(char));
 	char *instruct = malloc(10 * sizeof(char));
 	char *R1 = malloc(10 * sizeof(char));
 	char *R2 = malloc(10 * sizeof(char));
 	char *R3 = malloc(10 * sizeof(char));
+	int i = 0;
 
-	while(fgets(line, 100, fpi) != NULL){		//Reads through file line by line
+	while(getline(&line, &linesize, fpi) != 0){		//Reads through file line by line
 		printf("Line is: %s\n", line);	//Debug
-		int i = 0;	//Used to parse line
+		i = 0;	//Used to parse line
 		linecopy = strtok(line, " ");	//Breaks line into instruction by looking for space char
 		instruct = linecopy;
 		printf("Instruction: %s\n", instruct);	//Debug
@@ -49,7 +50,7 @@ int main(int argc, char *argv[]) {
 					printf("Test\n");
 					linecopy = strtok(line, ",");
 					R1 = linecopy;
-					printf("%s", linecopy);
+					printf("%s", R1);
 					i++;
 				}
 				else if(i == 1){
@@ -62,9 +63,6 @@ int main(int argc, char *argv[]) {
 					printf("%s", R3);
 					i++;
 				}
-				else
-					i = 0;
-			}
 		}
 	}
 	
