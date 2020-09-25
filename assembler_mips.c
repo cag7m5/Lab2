@@ -48,7 +48,9 @@ int main(int argc, char *argv[]) {
 			while(line != NULL){
 				if(i == 0){
 					printf("Test\n");
-					linecopy = strtok(NULL, " $(), ");
+					linecopy = strtok(NULL, ",");
+					printf("%s\n", linecopy);
+					linecopy = strtok(NULL, ",");
 					R1 = linecopy;
 					printf("%s", R1);
 					i++;
@@ -65,6 +67,7 @@ int main(int argc, char *argv[]) {
 					printf("%s", R3);
 					i++;
 				}
+			}
 		}
 	}
 	
