@@ -620,7 +620,7 @@ int main(int argc, char *argv[]) {
             else if (strcmp(instruct,"beq") == 0)//BEQ
             {
                   
-                    if(fscanf(fpi, " %[^,], %[^,], %X", rt, rs, &immediate) != 0)
+                    if(fscanf(fpi, " %[^,], %[^,], %X", rs, rt, &immediate) != 0)
                     { 
   
                         converted_rt = convert_register(rt);
@@ -702,7 +702,7 @@ int main(int argc, char *argv[]) {
             else if (strcmp(instruct,"bne") == 0)//BNE
             {
                   
-                    if(fscanf(fpi, " %[^,], %[^,], %X", rt, rs, &immediate) != 0)
+                    if(fscanf(fpi, " %[^,], %[^,], %X", rs, rt, &immediate) != 0)
                     { 
   
                         converted_rt = convert_register(rt);
@@ -720,14 +720,15 @@ int main(int argc, char *argv[]) {
             else if (strcmp(instruct,"lb") == 0)//LB*****
             {
                   
-                    if(fscanf(fpi, " %[^,], %[^,], %X", rt, rs, &immediate) != 0)
+                    if(fscanf(fpi, " %[^,], %X(%[^)]%*c", rt, &immediate, rs) != 0)
                     { 
-  
+                        
+                        printf("\nrt: %s offset: %X base: %s\n", rt, immediate, rs);
                         converted_rt = convert_register(rt);
                         converted_rs = convert_register(rs);
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
-                        op = 0x10000000;
+                        op = 0x80000000;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -760,7 +761,7 @@ int main(int argc, char *argv[]) {
                     { 
   
                         converted_rt = convert_register(rt);
-                        converted_rt = ((converted_rs << 16) & 0x001F0000);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
                         op = 0x3C000000;
                         output = immediate + converted_rt + op;
                         fprintf(fpo, "%X\n", output);

@@ -20,4 +20,19 @@ srl $a0, $a1, 9
 sub $a0, $a1, $a2
 subu $a0, $a1, $a2
 xor $a0, $a1, $a2
+j 0xFFFFFF
+jal 0xFFFFFF
+addi $a0, $a1, 0xffff
+addiu $a0, $a1, 0xFFFF
+andi $a0, $a1, 0xFFFF
+beq $a0, $a1, 0xFFFF
+bgez $a0, 0xFFFF
+bltz $a0, 0xFFFF
+bgtz $a0, 0xFFFF
+blez $a0, 0xFFFF
+bne $a0, $a1, 0xFFFF
+lui $a0, 0xFFFF
+ori $a0, $a1, 0xFFFF
+slti $a0, $a1, 0xFFFF
+xori $a0, $a1, 0xFFFF
 syscall
