@@ -899,14 +899,14 @@ int main(int argc, char *argv[]) {
             
             else //this is the final else, all operations go above this
             {
-                    printf("no instruction associated with that name");
+                    printf("no instruction associated with that name. Check input file");
                     
             }
         }
      
         else//if the file ends or the instruction at the beginning of the line doesn't read
         {
-            printf("\nend of file(ok) or instruction not found\n");
+            printf("\n end of file. Scanning complete\n");
             break;
         }
 
@@ -916,6 +916,7 @@ int main(int argc, char *argv[]) {
     }//end while
     
     fclose(fpi);
+    fclose(fpo);
     
     return 0;
 }
