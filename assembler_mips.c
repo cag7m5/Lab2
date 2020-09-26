@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
     }
 
     fpi = fopen(argv[1], "r");
-    fpo = fopen("out1.in", "w");
+    fpo = fopen("Output.in", "w");
 
     if (fpi == NULL || fpo == NULL){
         printf("\nERROR: Can't open one or more files\n");
