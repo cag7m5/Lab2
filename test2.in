@@ -1,1 +1,23 @@
 add $a0, $a1, $a2
+addu $a0, $a1, $a2
+and $a0, $a1, $a2
+div $a0, $a1
+divu $a0, $a1
+jalr $a0
+jr $a0
+mfhi $a0
+mflo $a0
+mthi $a0
+mtlo $a0
+mult $a0, $a1
+multu $a0, $a1
+nor $a0, $a1, $a2
+or $a0, $a1, $a2
+sll $a0, $a1, 8
+slt $a0, $a1, $a2
+sra $a0, $a1, 2
+srl $a0, $a1, 9
+sub $a0, $a1, $a2
+subu $a0, $a1, $a2
+xor $a0, $a1, $a2
+syscall

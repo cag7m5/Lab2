@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
     unsigned int output;
     
     //this while loop runs a single time for every line read in
-    while(j < 5)//just for now, later this will be "while(!feof(fpi))" so it stops at end of file
+    while(j < 23)//just for now, later this will be "while(!feof(fpi))" so it stops at end of file
     {    
         //reinitialize ints each time
         op = 0;
@@ -312,7 +312,7 @@ int main(int argc, char *argv[]) {
                     {
                    
                         converted_rs = convert_register(rs);
-                        converted_rs = ((converted_rs << 11) & 0x0000F800);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
                         funct = 0b010001;
                         output = converted_rs + funct;
                         fprintf(fpo, "%X\n", output);
@@ -328,7 +328,7 @@ int main(int argc, char *argv[]) {
                     {
                    
                         converted_rs = convert_register(rs);
-                        converted_rs = ((converted_rs << 11) & 0x0000F800);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
                         funct = 0b010011;
                         output = converted_rs + funct;
                         fprintf(fpo, "%X\n", output);
@@ -416,15 +416,15 @@ int main(int argc, char *argv[]) {
             
             else if (strcmp(instruct, "sll") == 0)//SLL
             {
-                    if(fscanf(fpi, " %[^,], %[^,], %X", rd, rt, shamt) != 0)
+                    if(fscanf(fpi, " %[^,], %[^,], %X", rd, rt, &shamt) != 0)
                     {
                         
                         converted_rd = convert_register(rd);
                         converted_rt = convert_register(rt);
                         converted_rd = ((converted_rd << 11) & 0x0000F800);
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
-                        shamt = ((shamt << 6) & 0x00007C00);
-                        output = converted_rt + converted_rs + shamt;
+                        shamt = ((shamt << 6) & 0x000007C0);
+                        output = converted_rt + converted_rd + shamt;
                         fprintf(fpo, "%X\n", output);
                     } 
                     else
@@ -454,16 +454,16 @@ int main(int argc, char *argv[]) {
             
             else if (strcmp(instruct, "sra") == 0)//SRA
             {
-                    if(fscanf(fpi, " %[^,], %[^,], %X", rd, rt, shamt) != 0)
+                    if(fscanf(fpi, " %[^,], %[^,], %X", rd, rt, &shamt) != 0)
                     {
                         
                         converted_rd = convert_register(rd);
                         converted_rt = convert_register(rt);
                         converted_rd = ((converted_rd << 11) & 0x0000F800);
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
-                        shamt = ((shamt << 6) & 0x00007C00);
+                        shamt = ((shamt << 6) & 0x000007C0);
                         funct = 0b000011;
-                        output = converted_rt + converted_rs + shamt + funct;
+                        output = converted_rt + converted_rd + shamt + funct;
                         fprintf(fpo, "%X\n", output);
                     } 
                     else
@@ -473,16 +473,16 @@ int main(int argc, char *argv[]) {
             
             else if (strcmp(instruct, "srl") == 0)//SRL
             {
-                    if(fscanf(fpi, " %[^,], %[^,], %X", rd, rt, shamt) != 0)
+                    if(fscanf(fpi, " %[^,], %[^,], %X", rd, rt, &shamt) != 0)
                     {
                         
                         converted_rd = convert_register(rd);
                         converted_rt = convert_register(rt);
                         converted_rd = ((converted_rd << 11) & 0x0000F800);
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
-                        shamt = ((shamt << 6) & 0x00007C00);
+                        shamt = ((shamt << 6) & 0x000007C0);
                         funct = 0b000010;
-                        output = converted_rt + converted_rs + shamt + funct;
+                        output = converted_rt + converted_rd + shamt + funct;
                         fprintf(fpo, "%X\n", output);
                     } 
                     else
