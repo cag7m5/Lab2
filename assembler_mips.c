@@ -107,8 +107,9 @@ int main(int argc, char *argv[]) {
     unsigned int op;
     unsigned int immediate;
     //unsigned int target;
-    //unsiged int shamt, funct;
-    unsigned int converted_rs, converted_rt; //converted_rd;
+    unsigned int funct; 
+    unsigned int shamt;
+    unsigned int converted_rs, converted_rt, converted_rd;
     unsigned int output;
     
     //this while loop runs a single time for every line read in
@@ -119,10 +120,10 @@ int main(int argc, char *argv[]) {
         immediate = 0;
         //target = 0;
         //shamt = 0;
-        //funct = 0;
+        funct = 0;
         converted_rs = 0;
         converted_rt = 0;
-        //converted_rd = 0;
+        converted_rd = 0;
         output = 0;
 
         if(fscanf(fpi, "%s", instruct) == 1)// scan instruction at beginning of line
@@ -149,7 +150,18 @@ int main(int argc, char *argv[]) {
             else if (strcmp(instruct, "add") == 0)//ADD
             {
                     if(fscanf(fpi, " %[^,], %[^,], %s", rd, rs, rt) != 0)
-                         fprintf(fpo, "%X\n", output);
+                    {
+                        
+                        converted_rd = convert_register(rd);
+                        converted_rt = convert_register(rt);
+                        converted_rs = convert_register(rs);
+                        converted_rd = ((converted_rd << 16) & 0x0000F800);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b100000;
+                        output = converted_rt + converted_rs + converted_rd + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
                     else
                         printf("line not read/stored correctly");
                     
