@@ -723,7 +723,6 @@ int main(int argc, char *argv[]) {
                     if(fscanf(fpi, " %[^,], %X(%[^)]%*c", rt, &immediate, rs) != 0)
                     { 
                         
-                        printf("\nrt: %s offset: %X base: %s\n", rt, immediate, rs);
                         converted_rt = convert_register(rt);
                         converted_rs = convert_register(rs);
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
@@ -739,14 +738,14 @@ int main(int argc, char *argv[]) {
             else if (strcmp(instruct,"lh") == 0)//LH*****
             {
                   
-                    if(fscanf(fpi, " %[^,], %[^,], %X", rt, rs, &immediate) != 0)
+                    if(fscanf(fpi, " %[^,], %X(%[^)]%*c", rt, &immediate, rs) != 0)
                     { 
-  
+                        
                         converted_rt = convert_register(rt);
                         converted_rs = convert_register(rs);
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
-                        op = 0x10000000;
+                        op = 0x84000000;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -773,14 +772,14 @@ int main(int argc, char *argv[]) {
             else if (strcmp(instruct,"lw") == 0)//LW*****
             {
                   
-                    if(fscanf(fpi, " %[^,], %[^,], %X", rt, rs, &immediate) != 0)
+                    if(fscanf(fpi, " %[^,], %X(%[^)]%*c", rt, &immediate, rs) != 0)
                     { 
-  
+                        
                         converted_rt = convert_register(rt);
                         converted_rs = convert_register(rs);
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
-                        op = 0x10000000;
+                        op = 0x8C000000;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -809,14 +808,14 @@ int main(int argc, char *argv[]) {
             else if (strcmp(instruct,"sb") == 0)//SB*****
             {
                   
-                    if(fscanf(fpi, " %[^,], %[^,], %X", rt, rs, &immediate) != 0)
+                    if(fscanf(fpi, " %[^,], %X(%[^)]%*c", rt, &immediate, rs) != 0)
                     { 
-  
+                        
                         converted_rt = convert_register(rt);
                         converted_rs = convert_register(rs);
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
-                        op = 0x10000000;
+                        op = 0xA0000000;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -827,14 +826,14 @@ int main(int argc, char *argv[]) {
             else if (strcmp(instruct,"sh") == 0)//SH*****
             {
                   
-                    if(fscanf(fpi, " %[^,], %[^,], %X", rt, rs, &immediate) != 0)
+                    if(fscanf(fpi, " %[^,], %X(%[^)]%*c", rt, &immediate, rs) != 0)
                     { 
-  
+                        
                         converted_rt = convert_register(rt);
                         converted_rs = convert_register(rs);
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
-                        op = 0x10000000;
+                        op = 0xA4000000;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -863,14 +862,14 @@ int main(int argc, char *argv[]) {
             else if (strcmp(instruct,"sw") == 0)//SW*****
             {
                   
-                    if(fscanf(fpi, " %[^,], %[^,], %X", rt, rs, &immediate) != 0)
+                    if(fscanf(fpi, " %[^,], %X(%[^)]%*c", rt, &immediate, rs) != 0)
                     { 
-  
+                        
                         converted_rt = convert_register(rt);
                         converted_rs = convert_register(rs);
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
-                        op = 0x10000000;
+                        op = 0xAC000000;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
