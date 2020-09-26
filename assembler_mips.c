@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
     }
 
     fpi = fopen(argv[1], "r");
-    fpo = fopen("Output.in", "w");
+    fpo = fopen("out1.in", "w");
 
     if (fpi == NULL || fpo == NULL){
         printf("\nERROR: Can't open one or more files\n");
@@ -108,7 +108,7 @@ int main(int argc, char *argv[]) {
     unsigned int immediate;
     //unsigned int target;
     unsigned int funct; 
-    unsigned int shamt;
+    //unsigned int shamt;
     unsigned int converted_rs, converted_rt, converted_rd;
     unsigned int output;
     
@@ -155,7 +155,7 @@ int main(int argc, char *argv[]) {
                         converted_rd = convert_register(rd);
                         converted_rt = convert_register(rt);
                         converted_rs = convert_register(rs);
-                        converted_rd = ((converted_rd << 16) & 0x0000F800);
+                        converted_rd = ((converted_rd << 11) & 0x0000F800);
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         funct = 0b100000;
