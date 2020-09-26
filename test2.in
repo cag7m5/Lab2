@@ -35,4 +35,10 @@ lui $a0, 0xFFFF
 ori $a0, $a1, 0xFFFF
 slti $a0, $a1, 0xFFFF
 xori $a0, $a1, 0xFFFF
+lb $a2, 0xF217($t8)
+lh $a2, 0xF217($t8)
+lw $a2, 0xF217($t8)
+sb $a2, 0xF217($t8)
+sh $a2, 0xF217($t8)
+sw $a2, 0xF217($t8)
 syscall
