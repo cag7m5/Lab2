@@ -108,7 +108,7 @@ int main(int argc, char *argv[]) {
     unsigned int immediate;
     //unsigned int target;
     unsigned int funct; 
-    //unsigned int shamt;
+    unsigned int shamt;
     unsigned int converted_rs, converted_rt, converted_rd;
     unsigned int output;
     
@@ -119,7 +119,7 @@ int main(int argc, char *argv[]) {
         op = 0;
         immediate = 0;
         //target = 0;
-        //shamt = 0;
+        shamt = 0;
         funct = 0;
         converted_rs = 0;
         converted_rt = 0;
@@ -167,10 +167,21 @@ int main(int argc, char *argv[]) {
                     
             }
             
-            else if (strcmp(instruct, "addi") == 0)//ADDI
+            else if (strcmp(instruct, "addu") == 0)//ADDU
             {
-                    if(fscanf(fpi, "%[^,], %[^,], %X", rt, rs, &immediate) != 0)
-                        printf("\nread in ADDI");
+                    if(fscanf(fpi, " %[^,], %[^,], %s", rd, rs, rt) != 0)
+                    {
+                        
+                        converted_rd = convert_register(rd);
+                        converted_rt = convert_register(rt);
+                        converted_rs = convert_register(rs);
+                        converted_rd = ((converted_rd << 11) & 0x0000F800);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b100001;
+                        output = converted_rt + converted_rs + converted_rd + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
                     else
                         printf("line not read/stored correctly");
                     
@@ -178,17 +189,369 @@ int main(int argc, char *argv[]) {
             
             else if (strcmp(instruct, "and") == 0)//AND
             {
-                    if(fscanf(fpi, "%[^,], %[^,], %X", rt, rs, &immediate) != 0)
-                        printf("\nread in AND");
+                    if(fscanf(fpi, " %[^,], %[^,], %s", rd, rs, rt) != 0)
+                    {
+                        
+                        converted_rd = convert_register(rd);
+                        converted_rt = convert_register(rt);
+                        converted_rs = convert_register(rs);
+                        converted_rd = ((converted_rd << 11) & 0x0000F800);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b100100;
+                        output = converted_rt + converted_rs + converted_rd + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
                     else
                         printf("line not read/stored correctly");
                     
             }
             
-            else if (strcmp(instruct, "add") == 0)//ANDI
+            else if (strcmp(instruct, "div") == 0)//DIV
             {
-                    if(fscanf(fpi, "%[^,], %[^,], %X", rt, rs, &immediate) != 0)
-                        printf("\nread in ADD");
+                    if(fscanf(fpi, " %[^,], %s", rs, rt) != 0)
+                    {
+                   
+                        converted_rt = convert_register(rt);
+                        converted_rs = convert_register(rs);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b011010;
+                        output = converted_rt + converted_rs + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            else if (strcmp(instruct, "divu") == 0)//DIVU
+            {
+                    if(fscanf(fpi, " %[^,], %s", rs, rt) != 0)
+                    {
+                   
+                        converted_rt = convert_register(rt);
+                        converted_rs = convert_register(rs);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b011011;
+                        output = converted_rt + converted_rs + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "jalr") == 0)//JALR(using the first listed format: JALR rs)
+            {
+                    if(fscanf(fpi, " %s", rs) != 0)
+                    {
+                   
+                        converted_rs = convert_register(rs);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b001001;
+                        output = converted_rs + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "jr") == 0)//JR
+            {
+                    if(fscanf(fpi, " %s", rs) != 0)
+                    {
+                   
+                        converted_rs = convert_register(rs);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b001000;
+                        output = converted_rs + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "mfhi") == 0)//MFHI
+            {
+                    if(fscanf(fpi, " %s", rd) != 0)
+                    {
+                   
+                        converted_rd = convert_register(rd);
+                        converted_rd = ((converted_rd << 11) & 0x0000F800);
+                        funct = 0b010000;
+                        output = converted_rd + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "mflo") == 0)//MFLO
+            {
+                    if(fscanf(fpi, " %s", rd) != 0)
+                    {
+                   
+                        converted_rd = convert_register(rd);
+                        converted_rd = ((converted_rd << 11) & 0x0000F800);
+                        funct = 0b010010;
+                        output = converted_rd + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "mthi") == 0)//MTHI
+            {
+                    if(fscanf(fpi, " %s", rs) != 0)
+                    {
+                   
+                        converted_rs = convert_register(rs);
+                        converted_rs = ((converted_rs << 11) & 0x0000F800);
+                        funct = 0b010001;
+                        output = converted_rs + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "mtlo") == 0)//MTLO
+            {
+                    if(fscanf(fpi, " %s", rs) != 0)
+                    {
+                   
+                        converted_rs = convert_register(rs);
+                        converted_rs = ((converted_rs << 11) & 0x0000F800);
+                        funct = 0b010011;
+                        output = converted_rs + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "mult") == 0)//MULT
+            {
+                    if(fscanf(fpi, " %[^,], %s", rs, rt) != 0)
+                    {
+                   
+                        converted_rt = convert_register(rt);
+                        converted_rs = convert_register(rs);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b011000;
+                        output = converted_rt + converted_rs + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "multu") == 0)//MULTU
+            {
+                    if(fscanf(fpi, " %[^,], %s", rs, rt) != 0)
+                    {
+                   
+                        converted_rt = convert_register(rt);
+                        converted_rs = convert_register(rs);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b011001;
+                        output = converted_rt + converted_rs + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "nor") == 0)//NOR
+            {
+                    if(fscanf(fpi, " %[^,], %[^,], %s", rd, rs, rt) != 0)
+                    {
+                        
+                        converted_rd = convert_register(rd);
+                        converted_rt = convert_register(rt);
+                        converted_rs = convert_register(rs);
+                        converted_rd = ((converted_rd << 11) & 0x0000F800);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b100111;
+                        output = converted_rt + converted_rs + converted_rd + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "or") == 0)//OR
+            {
+                    if(fscanf(fpi, " %[^,], %[^,], %s", rd, rs, rt) != 0)
+                    {
+                        
+                        converted_rd = convert_register(rd);
+                        converted_rt = convert_register(rt);
+                        converted_rs = convert_register(rs);
+                        converted_rd = ((converted_rd << 11) & 0x0000F800);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b100101;
+                        output = converted_rt + converted_rs + converted_rd + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "sll") == 0)//SLL
+            {
+                    if(fscanf(fpi, " %[^,], %[^,], %X", rd, rt, shamt) != 0)
+                    {
+                        
+                        converted_rd = convert_register(rd);
+                        converted_rt = convert_register(rt);
+                        converted_rd = ((converted_rd << 11) & 0x0000F800);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        shamt = ((shamt << 6) & 0x00007C00);
+                        output = converted_rt + converted_rs + shamt;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "slt") == 0)//SLT
+            {
+                    if(fscanf(fpi, " %[^,], %[^,], %s", rd, rs, rt) != 0)
+                    {
+                        
+                        converted_rd = convert_register(rd);
+                        converted_rt = convert_register(rt);
+                        converted_rs = convert_register(rs);
+                        converted_rd = ((converted_rd << 11) & 0x0000F800);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b101010;
+                        output = converted_rt + converted_rs + converted_rd + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "sra") == 0)//SRA
+            {
+                    if(fscanf(fpi, " %[^,], %[^,], %X", rd, rt, shamt) != 0)
+                    {
+                        
+                        converted_rd = convert_register(rd);
+                        converted_rt = convert_register(rt);
+                        converted_rd = ((converted_rd << 11) & 0x0000F800);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        shamt = ((shamt << 6) & 0x00007C00);
+                        funct = 0b000011;
+                        output = converted_rt + converted_rs + shamt + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "srl") == 0)//SRL
+            {
+                    if(fscanf(fpi, " %[^,], %[^,], %X", rd, rt, shamt) != 0)
+                    {
+                        
+                        converted_rd = convert_register(rd);
+                        converted_rt = convert_register(rt);
+                        converted_rd = ((converted_rd << 11) & 0x0000F800);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        shamt = ((shamt << 6) & 0x00007C00);
+                        funct = 0b000010;
+                        output = converted_rt + converted_rs + shamt + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "sub") == 0)//SUB
+            {
+                    if(fscanf(fpi, " %[^,], %[^,], %s", rd, rs, rt) != 0)
+                    {
+                        
+                        converted_rd = convert_register(rd);
+                        converted_rt = convert_register(rt);
+                        converted_rs = convert_register(rs);
+                        converted_rd = ((converted_rd << 11) & 0x0000F800);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b100010;
+                        output = converted_rt + converted_rs + converted_rd + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "subu") == 0)//SUBU
+            {
+                    if(fscanf(fpi, " %[^,], %[^,], %s", rd, rs, rt) != 0)
+                    {
+                        
+                        converted_rd = convert_register(rd);
+                        converted_rt = convert_register(rt);
+                        converted_rs = convert_register(rs);
+                        converted_rd = ((converted_rd << 11) & 0x0000F800);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b100011;
+                        output = converted_rt + converted_rs + converted_rd + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
+                    else
+                        printf("line not read/stored correctly");
+                    
+            }
+            
+            else if (strcmp(instruct, "syscall") == 0)//SYSCALL
+            {
+                        output = 0x0000000C;
+                        fprintf(fpo, "%X\n", output);
+                  
+            }
+            
+            else if (strcmp(instruct, "xor") == 0)//XOR
+            {
+                    if(fscanf(fpi, " %[^,], %[^,], %s", rd, rs, rt) != 0)
+                    {
+                        
+                        converted_rd = convert_register(rd);
+                        converted_rt = convert_register(rt);
+                        converted_rs = convert_register(rs);
+                        converted_rd = ((converted_rd << 11) & 0x0000F800);
+                        converted_rt = ((converted_rt << 16) & 0x001F0000);
+                        converted_rs = ((converted_rs << 21) & 0x03E00000);
+                        funct = 0b100110;
+                        output = converted_rt + converted_rs + converted_rd + funct;
+                        fprintf(fpo, "%X\n", output);
+                    } 
                     else
                         printf("line not read/stored correctly");
                     
