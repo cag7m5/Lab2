@@ -899,7 +899,7 @@ int main(int argc, char *argv[]) {
             
             else //this is the final else, all operations go above this
             {
-                    printf("no instruction associated with that name. Check input file");
+                    printf("No instruction has been found. Check input file");
                     
             }
         }
