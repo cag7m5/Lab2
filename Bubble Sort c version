@@ -1,0 +1,20 @@
+int i;
+int j;
+int arr[];
+int temp;
+
+void BubbleSort( int arr[]) {
+
+  for(i = 0; i < 10; i++) {
+      for(j = i; j < 10; j++) {
+      
+        if(arr[i] > arr[j]) {
+         
+            temp = arr[j];
+            arr[j] = arr[i];
+            arr[j] = temp;
+            
+        }
+      }
+  }
+}
