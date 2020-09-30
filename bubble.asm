@@ -30,23 +30,39 @@ sw $t9, 24($a0)
 #Sort
 sub $s0, $t0, $t1
 bgtz $s0, 64  #0x60 branch to 64 if t0 > t1
+sw $t1, 0($a0)
+sw $t0, 4($a0)
 sub $s0, $t1, $t2
 bgtz $s0, 6c #branch to 6c if t1 > t2
+sw $t2, 4($a0)
+sw $t1, 8($a0)
 sub $s0, $t2, $t3
 bgtz $s0, 74 #0x70 branch to 74 if t2 > t3
+sw $t3, 8($a0)
+sw $t2, c($a0)
 sub $s0, $t3, $t4
 bgtz $s0, 7c #branch to 7c if t3 > t4
+sw $t4, c($a0)
+sw $t3, 10($a0)
 sub $s0, $t4, $t5
 bgtz $s0, 84 #0x80 branch to 84 if t4 > t5
+sw $t5, 10($a0)
+sw $t4, 14($a0)
 sub $s0, $t5, $t6
 bgtz $s0, 8c #branch to 8c if t5 > t6
+sw $t6, 14($a0)
+sw $t5, 18($a0)
 sub $s0, $t6, $t7
 bgtz $s0, 94 #0x90 branch to 94 if t6 > t7
+sw $t7, 18($a0)
+sw $t6, 1c($a0)
 sub $s0, $t7, $t8
 bgtz $s0, 9c #branch to 9c if t7 > t8
+sw $t8, 1c($a0)
+sw $t7, 20($a0)
 sub $s0, $t8, $t9
 bgtz $s0, 104 #0x100 branch to 104 if t8 > t9
-
-
+sw $t9, 20($a0)
+sw $t8, 24($a0)
 
 
