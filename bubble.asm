@@ -64,5 +64,6 @@ sub $s0, $t8, $t9
 bgtz $s0, 104 #0x100 branch to 104 if t8 > t9
 sw $t9, 20($a0)
 sw $t8, 24($a0)
-
+addiu $v0, $zero, 0xa
+syscall
 
