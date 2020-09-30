@@ -138,6 +138,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x24000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -560,6 +561,7 @@ int main(int argc, char *argv[]) {
                     if(fscanf(fpi, " %X", &target) != 0)
                     {
                         op = 0x08000000;
+                        target = target & 0x03FFFFFF;
                         output = target + op;
                         fprintf(fpo, "%X\n", output);
                     } 
@@ -573,6 +575,7 @@ int main(int argc, char *argv[]) {
                     if(fscanf(fpi, " %X", &target) != 0)
                     {
                         op = 0x0C000000;
+                        target = target & 0x03FFFFFF;
                         output = target + op;
                         fprintf(fpo, "%X\n", output);
                     } 
@@ -592,6 +595,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x20000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -610,6 +614,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x30000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -628,6 +633,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x10000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -644,6 +650,7 @@ int main(int argc, char *argv[]) {
                         converted_rs = convert_register(rs);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x04000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rs + op + 0x00010000;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -660,6 +667,7 @@ int main(int argc, char *argv[]) {
                         converted_rs = convert_register(rs);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x04000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -676,6 +684,7 @@ int main(int argc, char *argv[]) {
                         converted_rs = convert_register(rs);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x1C000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -692,6 +701,7 @@ int main(int argc, char *argv[]) {
                         converted_rs = convert_register(rs);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x18000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -710,6 +720,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x14000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -728,6 +739,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x80000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -746,6 +758,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x84000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -762,6 +775,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = convert_register(rt);
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         op = 0x3C000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -780,6 +794,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x8C000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -798,6 +813,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x34000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -816,6 +832,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0xA0000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -834,6 +851,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0xA4000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -852,6 +870,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x28000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -870,6 +889,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0xAC000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
@@ -888,6 +908,7 @@ int main(int argc, char *argv[]) {
                         converted_rt = ((converted_rt << 16) & 0x001F0000);
                         converted_rs = ((converted_rs << 21) & 0x03E00000);
                         op = 0x38000000;
+                        immediate = immediate & 0x0000FFFF;
                         output = immediate + converted_rt + converted_rs + op;
                         fprintf(fpo, "%X\n", output);
                     }
